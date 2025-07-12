@@ -191,7 +191,7 @@ function openArticle(articleId) {
                 
                 <p>The Schrödinger equation, which governs the evolution of quantum systems, is a beautiful example of how mathematics describes the probabilistic nature of quantum phenomena:</p>
                 
-                <p> <a https://cse-robotics.engr.tamu.edu/dshell/cs689/papers/anderson72more_is_different.pdf" target="_blank"></a> </p>
+                <p> <a https://cse-robotics.engr.tamu.edu/dshell/cs689/papers/anderson72more_is_different.pdf" target="_blank">More is different</a> </p>
             `
         }
     };
