@@ -187,11 +187,8 @@ function openArticle(articleId) {
 
                       " target="_blank">Unreasonable Effectiveness of Mathematics in the Natural Sciences.</a></p>
                 
-                <p>There is this idea that the coolest thing about physics is all about black holes, general relativity, and quantum mechanics. There are two different paths that one can take in physics: those are high energy physics and condensed matter physics. For many students, the reason to do physics is to describe the fundamental nature of the universe. Many physicists describe themselves as trying to understand the mind of God. Is that really true? If you understand the fundamental properties of the particles that describe the universe, can you understand every phenomenon? Read the following article by Paul Anderson (one of the greatest physicist on 20th century) to find out.</p>
-                
-                <p>The Schrödinger equation, which governs the evolution of quantum systems, is a beautiful example of how mathematics describes the probabilistic nature of quantum phenomena:</p>
-                
-                <p> <a href=https://cse-robotics.engr.tamu.edu/dshell/cs689/papers/anderson72more_is_different.pdf" target="_blank">More is different</a></p>
+                <p>There is this idea that the coolest thing about physics is all about black holes, general relativity, and quantum mechanics. There are two different paths that one can take in physics: those are high energy physics and condensed matter physics. For many students, the reason to do physics is to describe the fundamental nature of the universe. Many physicists describe themselves as trying to understand the mind of God. Is that really true? If you understand the fundamental properties of the particles that describe the universe, can you understand every phenomenon? Read the following article by Paul Anderson (one of the greatest physicist on 20th century) to find out.
+               <a href=https://cse-robotics.engr.tamu.edu/dshell/cs689/papers/anderson72more_is_different.pdf" target="_blank">More is different</a></p>
             `
         }
     };
