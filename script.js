@@ -168,3 +168,79 @@ document.addEventListener('DOMContentLoaded', function() {
     
     console.log('Website initialized successfully! 🚀');
 });
+// Blog Article Functions
+function openArticle(articleId) {
+    const modal = document.getElementById('article-modal');
+    const articleContent = document.getElementById('article-content');
+    
+    // Sample article content - replace with your actual content
+    const articles = {
+        'quantum-mechanics-intro': {
+            title: 'Introduction to Quantum Mechanics',
+            date: 'July 12, 2025',
+            category: 'Physics',
+            readTime: '8 min read',
+            content: `
+                <p>Quantum mechanics stands as one of the most revolutionary theories in physics, fundamentally changing our understanding of nature at its most basic level. Unlike classical physics, which deals with predictable, deterministic systems, quantum mechanics introduces probability and uncertainty as fundamental features of reality.</p>
+                
+                <h3>The Quantum Revolution</h3>
+                <p>The development of quantum mechanics began in the early 20th century when physicists like Max Planck, Albert Einstein, and Niels Bohr discovered that energy comes in discrete packets called "quanta." This was a radical departure from the continuous nature of classical physics.</p>
+                
+                <p>One of the most fascinating aspects of quantum mechanics is the concept of <strong>superposition</strong> - the idea that particles can exist in multiple states simultaneously until observed. This is famously illustrated by Schrödinger's cat thought experiment.</p>
+                
+                <h3>Mathematical Foundations</h3>
+                <p>The mathematical framework of quantum mechanics relies heavily on linear algebra, particularly complex vector spaces called Hilbert spaces. As I mentioned in my about section, it's remarkable how abstract mathematical concepts like linear algebra become essential tools for understanding physical reality.</p>
+                
+                <p>The Schrödinger equation, which governs the evolution of quantum systems, is a beautiful example of how mathematics describes the probabilistic nature of quantum phenomena:</p>
+                
+                <p style="text-align: center; font-style: italic; color: var(--accent-color);">iℏ ∂|ψ⟩/∂t = Ĥ|ψ⟩</p>
+                
+                <h3>Philosophical Implications</h3>
+                <p>Quantum mechanics raises profound questions about the nature of reality. The <a href="https://en.wikipedia.org/wiki/Measurement_problem" target="_blank">measurement problem</a> and various interpretations like the <a href="https://en.wikipedia.org/wiki/Many-worlds_interpretation" target="_blank">Many-worlds interpretation</a> continue to spark debates among physicists and philosophers.</p>
+                
+                <p>What fascinates me most is how quantum mechanics challenges our classical intuition about reality, suggesting that the universe might be fundamentally different from what we experience in our everyday lives.</p>
+                
+                <p>This is just the beginning of our quantum journey. In future articles, I plan to explore specific phenomena like entanglement, quantum tunneling, and the connections between quantum mechanics and general relativity.</p>
+            `
+        }
+    };
+    
+    const article = articles[articleId];
+    if (article) {
+        articleContent.innerHTML = `
+            <h1 class="article-title">${article.title}</h1>
+            <div class="article-meta">
+                <span>📅 ${article.date}</span>
+                <span>📚 ${article.category}</span>
+                <span>⏱️ ${article.readTime}</span>
+            </div>
+            <div class="article-body">
+                ${article.content}
+            </div>
+        `;
+        
+        modal.style.display = 'block';
+        document.body.style.overflow = 'hidden';
+    }
+}
+
+function closeArticle() {
+    const modal = document.getElementById('article-modal');
+    modal.style.display = 'none';
+    document.body.style.overflow = '';
+}
+
+// Close modal when clicking outside
+document.addEventListener('click', function(e) {
+    const modal = document.getElementById('article-modal');
+    if (e.target === modal) {
+        closeArticle();
+    }
+});
+
+// Close modal with Escape key
+document.addEventListener('keydown', function(e) {
+    if (e.key === 'Escape') {
+        closeArticle();
+    }
+});
