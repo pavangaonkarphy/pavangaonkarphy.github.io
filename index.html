@@ -82,19 +82,30 @@
                 </div>
             </div>
         </section>
-
-        <section id="blog" class="section">
-            <div class="blog-posts">
-                <h2>Blog</h2>
-                <div class="blog-container">
-                    <div class="blog-card empty-state">
-                        <div class="empty-icon" aria-hidden="true">✒️</div>
-                        <h3>Thought-Provoking Articles Coming</h3>
-                        <p>I'm working on several articles about physics, mathematics, and philosophy.</p>
-                    </div>
+<section id="blog" class="section">
+    <div class="blog-posts">
+        <h2>Blog</h2>
+        <div class="blog-container">
+            <div class="blog-card" onclick="openArticle('quantum-mechanics-intro')">
+                <div class="blog-meta">
+                    <span class="blog-date">July 12, 2025</span>
+                    <span class="blog-category">Physics</span>
                 </div>
+                <h3>Introduction to Quantum Mechanics</h3>
+                <p>Exploring the fundamental principles of quantum mechanics and its philosophical implications for our understanding of reality.</p>
+                <div class="read-more">Read More →</div>
             </div>
-        </section>
+        </div>
+    </div>
+    
+    <!-- Article Modal -->
+    <div id="article-modal" class="modal">
+        <div class="modal-content">
+            <span class="close-btn" onclick="closeArticle()">&times;</span>
+            <div id="article-content"></div>
+        </div>
+    </div>
+</section>
 
         <section id="contact" class="section">
             <div class="contact-container">
