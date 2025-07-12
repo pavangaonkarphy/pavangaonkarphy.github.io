@@ -1,6 +1,6 @@
 // Wait for DOM to be fully loaded
 document.addEventListener('DOMContentLoaded', function() {
-    
+     
     // Navigation elements
     const hamburgerBtn = document.querySelector('.hamburger');
     const navMenu = document.querySelector('.nav-menu');
@@ -176,31 +176,22 @@ function openArticle(articleId) {
     // Sample article content - replace with your actual content
     const articles = {
         'quantum-mechanics-intro': {
-            title: 'Introduction to Quantum Mechanics',
+            title: 'Ideas that i found interesting ',
             date: 'July 12, 2025',
             category: 'Physics',
-            readTime: '8 min read',
+            readTime: '4 min read',
             content: `
-                <p>Quantum mechanics stands as one of the most revolutionary theories in physics, fundamentally changing our understanding of nature at its most basic level. Unlike classical physics, which deals with predictable, deterministic systems, quantum mechanics introduces probability and uncertainty as fundamental features of reality.</p>
+                <p>I have always liked the general theory of relativity., initially because it was, of course, mind-bending—you have time travel, extremely strange counterintuitive concepts, and obviously the thought experiments of Einstein. But that is not why I like the theory anymore. At least, there is more to the theory beyond all these things—that is, mathematics. While these ideas are very cool, there is an underlying beauty to the theory itself: that is, Riemannian geometry and the idea of describing space-time with Riemannian geometry. The Riemannian geometry was not described by Einstein; instead, when Einstein was establishing the GTR, he found out that the mathematics he needed to describe it was established by Bernhard Riemann a few decades ago.
+
+                      This is not unusual in physics. There are many times in history when the math needed to explain physical theories already existed. And often, that math fits so perfectly that it feels like it was made just for that theory—even though it wasn’t. There's a famous article that talks about this amazing connection between math and physics. It’s called The <a href="https://webhomes.maths.ed.ac.uk/~v1ranick/papers/wigner.pdf
+
+                      " target="_blank">Unreasonable Effectiveness of Mathematics in the Natural Sciences.</a></p>
                 
-                <h3>The Quantum Revolution</h3>
-                <p>The development of quantum mechanics began in the early 20th century when physicists like Max Planck, Albert Einstein, and Niels Bohr discovered that energy comes in discrete packets called "quanta." This was a radical departure from the continuous nature of classical physics.</p>
-                
-                <p>One of the most fascinating aspects of quantum mechanics is the concept of <strong>superposition</strong> - the idea that particles can exist in multiple states simultaneously until observed. This is famously illustrated by Schrödinger's cat thought experiment.</p>
-                
-                <h3>Mathematical Foundations</h3>
-                <p>The mathematical framework of quantum mechanics relies heavily on linear algebra, particularly complex vector spaces called Hilbert spaces. As I mentioned in my about section, it's remarkable how abstract mathematical concepts like linear algebra become essential tools for understanding physical reality.</p>
+                <p>There is this idea that the coolest thing about physics is all about black holes, general relativity, and quantum mechanics. There are two different paths that one can take in physics: those are high energy physics and condensed matter physics. For many students, the reason to do physics is to describe the fundamental nature of the universe. Many physicists describe themselves as trying to understand the mind of God. Is that really true? If you understand the fundamental properties of the particles that describe the universe, can you understand every phenomenon? Read the following article by Paul Anderson (one of the greatest physicist on 20th century) to find out.</p>
                 
                 <p>The Schrödinger equation, which governs the evolution of quantum systems, is a beautiful example of how mathematics describes the probabilistic nature of quantum phenomena:</p>
                 
-                <p style="text-align: center; font-style: italic; color: var(--accent-color);">iℏ ∂|ψ⟩/∂t = Ĥ|ψ⟩</p>
-                
-                <h3>Philosophical Implications</h3>
-                <p>Quantum mechanics raises profound questions about the nature of reality. The <a href="https://en.wikipedia.org/wiki/Measurement_problem" target="_blank">measurement problem</a> and various interpretations like the <a href="https://en.wikipedia.org/wiki/Many-worlds_interpretation" target="_blank">Many-worlds interpretation</a> continue to spark debates among physicists and philosophers.</p>
-                
-                <p>What fascinates me most is how quantum mechanics challenges our classical intuition about reality, suggesting that the universe might be fundamentally different from what we experience in our everyday lives.</p>
-                
-                <p>This is just the beginning of our quantum journey. In future articles, I plan to explore specific phenomena like entanglement, quantum tunneling, and the connections between quantum mechanics and general relativity.</p>
+                <p> <a https://cse-robotics.engr.tamu.edu/dshell/cs689/papers/anderson72more_is_different.pdf" target="_blank"></a> </p>
             `
         }
     };
