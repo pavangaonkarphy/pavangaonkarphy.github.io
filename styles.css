@@ -318,8 +318,11 @@ h2 {
   grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
   gap: 1.5rem;
   margin-top: 1.5rem;
+  justify-items: center; /* This centers the grid items */
+  max-width: 1200px; /* Optional: limit max width */
+  margin-left: auto;
+  margin-right: auto;
 }
-
 .project-card,
 .blog-card {
   background-color: var(--secondary-color);
