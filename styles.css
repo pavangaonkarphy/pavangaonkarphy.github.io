@@ -332,8 +332,9 @@ h2 {
   transition: transform 0.3s ease, box-shadow 0.3s ease;
   box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
   border: 1px solid transparent;
+  width: 100%; /* Ensure cards take full width of their grid area */
+  max-width: 400px; /* Optional: limit max width of individual cards */
 }
-
 .project-card:hover,
 .blog-card:hover {
   transform: translateY(-4px);
