@@ -314,12 +314,13 @@ h2 {
 /* Projects & Blog */
 .projects-container,
 .blog-container {
-  display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+  display: flex;
+  justify-content: center;
+  align-items: center;
   gap: 1.5rem;
   margin-top: 1.5rem;
-  justify-items: center; /* This centers the grid items */
-  max-width: 1200px; /* Optional: limit max width */
+  flex-wrap: wrap;
+  max-width: 1200px;
   margin-left: auto;
   margin-right: auto;
 }
@@ -683,7 +684,7 @@ img[loading="lazy"].loaded {
   
   .profile-img-container {
     width: 200px;
-    margin-bottom: 0;
+    margin-bottom: 0; 
   }
 }
 
@@ -697,6 +698,7 @@ img[loading="lazy"].loaded {
     left: 0.5rem;
   }
 }
+/* Blog Article Styles */
 /* Blog Article Styles */
 .blog-card {
     cursor: pointer;
@@ -750,45 +752,29 @@ img[loading="lazy"].loaded {
     transform: translateX(5px);
 }
 
-/* Modal Styles */
-.modal {
-    display: none;
-    position: fixed;
-    z-index: 1000;
-    left: 0;
-    top: 0;
-    width: 100%;
-    height: 100%;
-    background-color: rgba(0, 0, 0, 0.8);
-    backdrop-filter: blur(5px);
-}
-
-.modal-content {
-    background-color: var(--background-color);
-    margin: 2% auto;
-    padding: 2rem;
-    border-radius: 12px;
-    width: 90%;
+/* Article Page Styles */
+.article-container {
     max-width: 800px;
-    max-height: 90vh;
-    overflow-y: auto;
-    position: relative;
-    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
+    margin: 0 auto;
+    padding: 1rem;
 }
 
-.close-btn {
-    position: absolute;
-    top: 1rem;
-    right: 1.5rem;
-    font-size: 2rem;
-    font-weight: bold;
-    cursor: pointer;
+.back-btn {
+    background-color: var(--secondary-color);
     color: var(--text-color);
-    transition: color 0.3s ease;
+    border: 2px solid var(--accent-color);
+    padding: 0.75rem 1.5rem;
+    border-radius: 8px;
+    cursor: pointer;
+    font-weight: 500;
+    margin-bottom: 2rem;
+    transition: all 0.3s ease;
 }
 
-.close-btn:hover {
-    color: var(--accent-color);
+.back-btn:hover {
+    background-color: var(--accent-color);
+    color: white;
+    transform: translateY(-2px);
 }
 
 .article-title {
@@ -834,13 +820,10 @@ img[loading="lazy"].loaded {
     border-bottom-color: var(--accent-color);
 }
 
-/* Mobile Modal Styles */
+/* Mobile Article Styles */
 @media (max-width: 768px) {
-    .modal-content {
-        margin: 5% auto;
-        padding: 1.5rem;
-        width: 95%;
-        max-height: 85vh;
+    .article-container {
+        padding: 0.5rem;
     }
     
     .article-title {
@@ -852,9 +835,9 @@ img[loading="lazy"].loaded {
         gap: 0.5rem;
     }
     
-    .close-btn {
-        top: 0.5rem;
-        right: 1rem;
+    .back-btn {
+        width: 100%;
+        text-align: center;
     }
 }
 
