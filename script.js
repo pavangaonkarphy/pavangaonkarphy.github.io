@@ -1,3 +1,4 @@
+
 // Wait for DOM to be fully loaded
 document.addEventListener('DOMContentLoaded', function() {
      
@@ -169,32 +170,28 @@ document.addEventListener('DOMContentLoaded', function() {
     console.log('Website initialized successfully! 🚀');
 });
 // Blog Article Functions
-function openArticle(articleId) {
-    const modal = document.getElementById('article-modal');
-    const articleContent = document.getElementById('article-content');
-    
+function openArticlePage(articleId) {
     // Sample article content - replace with your actual content
     const articles = {
         'quantum-mechanics-intro': {
-            title: 'Ideas that i found interesting ',
+            title: 'Ideas that i found interesting',
             date: 'July 12, 2025',
             category: 'Physics',
             readTime: '4 min read',
             content: `
-                <p>I have always liked the general theory of relativity., initially because it was, of course, mind-bending—you have time travel, extremely strange counterintuitive concepts, and obviously the thought experiments of Einstein. But that is not why I like the theory anymore. At least, there is more to the theory beyond all these things—that is, mathematics. While these ideas are very cool, there is an underlying beauty to the theory itself: that is, Riemannian geometry and the idea of describing space-time with Riemannian geometry. The Riemannian geometry was not described by Einstein; instead, when Einstein was establishing the GTR, he found out that the mathematics he needed to describe it was established by Bernhard Riemann a few decades ago.
+                <p>I have always liked the general theory of relativity., initially because it was, of course, mind-bending—you have time travel, extremely strange counterintuitive concepts, and obviously the thought experiments of Einstein. But that is not why I like the theory anymore. At least, there is more to the theory beyond all these things—that is, mathematics. While these ideas are very cool, there is an underlying beauty to the theory itself: that is, Riemannian geometry and the idea of describing space-time with Riemannian geometry. The Riemannian geometry was not described by Einstein; instead, when Einstein was establishing the GTR, he found out that the mathematics he needed to describe it was established by Bernhard Riemann a few decades ago.</p>
 
-                      This is not unusual in physics. There are many times in history when the math needed to explain physical theories already existed. And often, that math fits so perfectly that it feels like it was made just for that theory—even though it wasn’t. There's a famous article that talks about this amazing connection between math and physics. It’s called The <a href="https://webhomes.maths.ed.ac.uk/~v1ranick/papers/wigner.pdf
-
-                      " target="_blank">Unreasonable Effectiveness of Mathematics in the Natural Sciences.</a></p>
+                <p>This is not unusual in physics. There are many times in history when the math needed to explain physical theories already existed. And often, that math fits so perfectly that it feels like it was made just for that theory—even though it wasn't. There's a famous article that talks about this amazing connection between math and physics. It's called The <a href="https://webhomes.maths.ed.ac.uk/~v1ranick/papers/wigner.pdf" target="_blank">Unreasonable Effectiveness of Mathematics in the Natural Sciences.</a></p>
                 
                 <p>There is this idea that the coolest thing about physics is all about black holes, general relativity, and quantum mechanics. There are two different paths that one can take in physics: those are high energy physics and condensed matter physics. For many students, the reason to do physics is to describe the fundamental nature of the universe. Many physicists describe themselves as trying to understand the mind of God. Is that really true? If you understand the fundamental properties of the particles that describe the universe, can you understand every phenomenon? Read the following article by Paul Anderson (one of the greatest physicist on 20th century) to find out.
-               <a href=https://cse-robotics.engr.tamu.edu/dshell/cs689/papers/anderson72more_is_different.pdf" target="_blank">More is different</a></p>
+               <a href="https://cse-robotics.engr.tamu.edu/dshell/cs689/papers/anderson72more_is_different.pdf" target="_blank">More is different</a></p>
             `
         }
     };
     
     const article = articles[articleId];
     if (article) {
+        const articleContent = document.getElementById('article-content');
         articleContent.innerHTML = `
             <h1 class="article-title">${article.title}</h1>
             <div class="article-meta">
@@ -207,28 +204,20 @@ function openArticle(articleId) {
             </div>
         `;
         
-        modal.style.display = 'block';
-        document.body.style.overflow = 'hidden';
+        // Hide blog section and show article page
+        showSection('article-page');
+        
+        // Update navigation
+        const navLinks = document.querySelectorAll('.nav-link');
+        navLinks.forEach(nav => nav.classList.remove('active'));
     }
 }
 
-function closeArticle() {
-    const modal = document.getElementById('article-modal');
-    modal.style.display = 'none';
-    document.body.style.overflow = '';
+function backToBlog() {
+    showSection('blog');
+    
+    // Update navigation
+    const navLinks = document.querySelectorAll('.nav-link');
+    navLinks.forEach(nav => nav.classList.remove('active'));
+    document.querySelector('[data-section="blog"]').classList.add('active');
 }
-
-// Close modal when clicking outside
-document.addEventListener('click', function(e) {
-    const modal = document.getElementById('article-modal');
-    if (e.target === modal) {
-        closeArticle();
-    }
-});
-
-// Close modal with Escape key
-document.addEventListener('keydown', function(e) {
-    if (e.key === 'Escape') {
-        closeArticle();
-    }
-});
