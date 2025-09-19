@@ -1,10 +1,11 @@
-// Website Controller - Optimized Version
+// Website Controller - Enhanced Version with Smooth Navigation
 class WebsiteController {
     constructor() {
         this.elements = {};
         this.isAnimating = false;
         this.animationDuration = 300;
         this.currentSection = 'about'; // Default section
+        this.isInArticleView = false; // Track if we're viewing an article
         
         this.init();
     }
@@ -92,6 +93,11 @@ class WebsiteController {
         
         const targetSection = e.currentTarget.getAttribute('data-section');
         if (targetSection && !this.isAnimating) {
+            // If we're in article view and navigating away, clean up first
+            if (this.isInArticleView && targetSection !== 'blog') {
+                this.cleanupArticleView();
+            }
+            
             this.showSection(targetSection);
             this.updateActiveNavLink(e.currentTarget);
             this.closeMobileMenu();
@@ -132,11 +138,15 @@ class WebsiteController {
         document.body.style.overflow = '';
     }
     
-    // Optimized section switching with animation queue
+    // Enhanced section switching with proper cleanup
     showSection(targetId) {
-        if (this.isAnimating || this.currentSection === targetId) return;
+        if (this.isAnimating || (this.currentSection === targetId && !this.isInArticleView)) return;
         
         this.isAnimating = true;
+        
+        // Clean up any active states
+        this.cleanupAllSections();
+        
         const targetSection = document.getElementById(targetId);
         
         if (!targetSection) {
@@ -144,7 +154,7 @@ class WebsiteController {
             return;
         }
         
-        // Hide current section
+        // Hide current section with smooth transition
         const currentSectionEl = document.getElementById(this.currentSection);
         if (currentSectionEl?.classList.contains('active')) {
             this.hideSection(currentSectionEl);
@@ -154,8 +164,32 @@ class WebsiteController {
         setTimeout(() => {
             this.displaySection(targetSection, targetId);
             this.currentSection = targetId;
+            this.isInArticleView = false;
             this.isAnimating = false;
         }, this.animationDuration);
+    }
+    
+    // Clean up all sections
+    cleanupAllSections() {
+        this.elements.sections.forEach(section => {
+            section.classList.remove('active', 'slide-in', 'slide-out');
+        });
+        
+        // Reset article view state
+        if (this.elements.articlePage) {
+            this.elements.articlePage.classList.remove('active');
+        }
+    }
+    
+    // Clean up article view specifically
+    cleanupArticleView() {
+        if (this.elements.articlePage) {
+            this.elements.articlePage.classList.remove('active');
+        }
+        if (this.elements.blogSection) {
+            this.elements.blogSection.classList.remove('active');
+        }
+        this.isInArticleView = false;
     }
     
     // Hide section with animation
@@ -170,13 +204,18 @@ class WebsiteController {
     
     // Show section with animation
     displaySection(section, sectionId) {
-        section.classList.add('active', 'slide-in');
+        // Ensure clean state
         section.classList.remove('slide-out');
+        section.classList.add('active', 'slide-in');
         
         // Trigger section-specific animations
         if (sectionId === 'about') {
             setTimeout(() => this.animateAboutSection(), 100);
         }
+        
+        // Reset scroll position to top
+        section.scrollTop = 0;
+        window.scrollTo({ top: 0, behavior: 'smooth' });
     }
     
     // Update active navigation link
@@ -188,12 +227,15 @@ class WebsiteController {
     // About section animation (optimized)
     animateAboutSection() {
         this.elements.revealTexts.forEach((text, index) => {
-            setTimeout(() => text.classList.add('visible'), index * 200);
+            text.classList.remove('visible'); // Reset first
+            setTimeout(() => text.classList.add('visible'), index * 150 + 50);
         });
     }
     
     // Optimized button animations
     animateButton(btn, state) {
+        if (!btn) return;
+        
         const transforms = {
             default: '',
             hover: 'translateY(-2px)',
@@ -219,18 +261,52 @@ class WebsiteController {
         
         reduceMotionQuery.addEventListener('change', handleReducedMotion);
         handleReducedMotion(reduceMotionQuery);
+        
+        // Improve focus management
+        document.addEventListener('keydown', (e) => {
+            if (e.key === 'Tab') {
+                document.body.classList.add('keyboard-nav');
+            }
+        });
+        
+        document.addEventListener('mousedown', () => {
+            document.body.classList.remove('keyboard-nav');
+        });
     }
     
     // Setup performance optimizations
     setupPerformanceOptimizations() {
-        // Debounce resize events if needed
+        // Debounce resize events
         let resizeTimeout;
         window.addEventListener('resize', () => {
             clearTimeout(resizeTimeout);
             resizeTimeout = setTimeout(() => {
-                // Handle resize logic here if needed
+                // Handle any resize-specific logic here
+                this.handleResize();
             }, 250);
         });
+        
+        // Optimize scroll performance
+        let scrollTimeout;
+        window.addEventListener('scroll', () => {
+            clearTimeout(scrollTimeout);
+            scrollTimeout = setTimeout(() => {
+                this.handleScroll();
+            }, 16); // ~60fps
+        }, { passive: true });
+    }
+    
+    // Handle resize events
+    handleResize() {
+        // Close mobile menu on resize to larger screen
+        if (window.innerWidth > 768) {
+            this.closeMobileMenu();
+        }
+    }
+    
+    // Handle scroll events
+    handleScroll() {
+        // Add any scroll-based functionality here if needed
     }
     
     // Update current year
@@ -242,34 +318,91 @@ class WebsiteController {
     
     // Initialize default section
     initializeDefaultSection() {
+        // Ensure clean state on load
+        this.cleanupAllSections();
+        
+        // Show about section by default
+        const aboutSection = document.getElementById('about');
+        if (aboutSection) {
+            aboutSection.classList.add('active');
+            this.currentSection = 'about';
+        }
+        
+        // Animate after a short delay
         setTimeout(() => {
             this.animateAboutSection();
-        }, 500);
+        }, 300);
     }
     
-    // Public methods for blog functionality
+    // Enhanced article page navigation
     openArticlePage(articleId) {
         if (this.isAnimating) return;
         
         const { blogSection, articlePage } = this.elements;
         if (!blogSection || !articlePage) return;
         
-        blogSection.classList.remove('active');
-        articlePage.classList.add('active');
+        this.isAnimating = true;
+        this.isInArticleView = true;
         
-        this.updateActiveNavLink(document.querySelector('[data-section="blog"]'));
+        // Clean transition to article
+        this.cleanupAllSections();
+        
+        // Show article page
+        setTimeout(() => {
+            articlePage.classList.add('active', 'slide-in');
+            this.updateActiveNavLink(document.querySelector('[data-section="blog"]'));
+            
+            // Scroll to top of article
+            articlePage.scrollTop = 0;
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+            
+            this.isAnimating = false;
+        }, 50);
     }
     
+    // Enhanced back to blog navigation
     backToBlog() {
         if (this.isAnimating) return;
         
         const { blogSection, articlePage } = this.elements;
         if (!blogSection || !articlePage) return;
         
-        articlePage.classList.remove('active');
-        blogSection.classList.add('active');
+        this.isAnimating = true;
         
-        this.updateActiveNavLink(document.querySelector('[data-section="blog"]'));
+        // Smooth transition back to blog
+        articlePage.classList.add('slide-out');
+        
+        setTimeout(() => {
+            articlePage.classList.remove('active', 'slide-out');
+            blogSection.classList.add('active', 'slide-in');
+            
+            this.currentSection = 'blog';
+            this.isInArticleView = false;
+            this.updateActiveNavLink(document.querySelector('[data-section="blog"]'));
+            
+            // Scroll to top
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+            
+            this.isAnimating = false;
+        }, this.animationDuration);
+    }
+    
+    // Public method to get current state
+    getCurrentState() {
+        return {
+            currentSection: this.currentSection,
+            isInArticleView: this.isInArticleView,
+            isAnimating: this.isAnimating
+        };
+    }
+    
+    // Method to force reset if needed
+    forceReset() {
+        this.isAnimating = false;
+        this.isInArticleView = false;
+        this.cleanupAllSections();
+        this.showSection('about');
+        this.updateActiveNavLink(document.querySelector('[data-section="about"]'));
     }
 }
 
@@ -285,4 +418,9 @@ function openArticlePage(articleId) {
 
 function backToBlog() {
     window.websiteController?.backToBlog();
+}
+
+// Debug function (can be removed in production)
+function debugWebsite() {
+    console.log('Website State:', window.websiteController?.getCurrentState());
 }
