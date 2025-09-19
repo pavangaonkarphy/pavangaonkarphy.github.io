@@ -816,4 +816,187 @@ img[loading="lazy"].loaded {
     font-size: 2.5rem;
   }
 }
+/* Enhanced smooth scrolling and transitions */
+html {
+  scroll-behavior: smooth;
+}
 
+/* Improved section transitions */
+.section {
+  display: none;
+  width: 100%;
+  opacity: 0;
+  transform: translateY(20px);
+  transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+  will-change: transform, opacity;
+}
+
+.section.active {
+  display: block;
+  opacity: 1;
+  transform: translateY(0);
+}
+
+/* Enhanced slide animations */
+.slide-in { 
+  animation: slideInUp 0.5s cubic-bezier(0.4, 0, 0.2, 1) forwards; 
+}
+
+.slide-out { 
+  animation: slideOutDown 0.4s cubic-bezier(0.4, 0, 0.2, 1) forwards; 
+}
+
+@keyframes slideInUp {
+  from { 
+    transform: translateY(30px); 
+    opacity: 0; 
+  }
+  to { 
+    transform: translateY(0); 
+    opacity: 1; 
+  }
+}
+
+@keyframes slideOutDown {
+  from { 
+    transform: translateY(0); 
+    opacity: 1; 
+  }
+  to { 
+    transform: translateY(-20px); 
+    opacity: 0; 
+  }
+}
+
+/* Smooth reveal text animations */
+.reveal-text {
+  margin-bottom: 1rem;
+  opacity: 0;
+  transform: translateY(20px);
+  transition: all 0.6s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.reveal-text.visible {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+/* Enhanced button transitions */
+.btn {
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  will-change: transform;
+}
+
+.btn:hover {
+  transform: translateY(-2px);
+}
+
+.btn:active {
+  transform: translateY(0);
+  transition: transform 0.1s ease;
+}
+
+/* Improved navigation transitions */
+.nav-link {
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.nav-link::after {
+  transition: width 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+/* Enhanced mobile menu animations */
+.nav-menu {
+  transition: left 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.hamburger-line {
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+/* Article page specific improvements */
+.article-container {
+  opacity: 0;
+  transform: translateY(20px);
+  transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+#article-page.active .article-container {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+/* Blog card hover improvements */
+.blog-card {
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  will-change: transform;
+}
+
+.blog-card:hover {
+  transform: translateY(-4px);
+}
+
+/* Contact item smooth transitions */
+.contact-item {
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+/* Improved focus styles for accessibility */
+.keyboard-nav .nav-link:focus,
+.keyboard-nav .btn:focus,
+.keyboard-nav .hamburger:focus {
+  outline: 2px solid var(--accent-color);
+  outline-offset: 2px;
+  border-radius: 4px;
+}
+
+/* Smooth image loading */
+img {
+  transition: opacity 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+img[loading="lazy"] {
+  opacity: 0;
+}
+
+img[loading="lazy"].loaded {
+  opacity: 1;
+}
+
+/* Performance optimizations */
+.section,
+.btn,
+.nav-link,
+.blog-card,
+.project-card {
+  backface-visibility: hidden;
+  perspective: 1000px;
+}
+
+/* Prevent layout shifts */
+.content {
+  min-height: calc(100vh - 150px);
+}
+
+/* Smooth header backdrop */
+header {
+  transition: backdrop-filter 0.3s ease;
+}
+
+/* Enhanced reduced motion support */
+@media (prefers-reduced-motion: reduce) {
+  * {
+    animation-duration: 0.01s !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01s !important;
+    scroll-behavior: auto !important;
+  }
+  
+  .section {
+    transition: none !important;
+  }
+  
+  .reveal-text {
+    transition: none !important;
+  }
+}
