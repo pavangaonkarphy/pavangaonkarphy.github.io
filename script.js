@@ -224,13 +224,22 @@ class WebsiteController {
         activeLink.classList.add('active');
     }
     
-    // About section animation (optimized)
-    animateAboutSection() {
-        this.elements.revealTexts.forEach((text, index) => {
-            text.classList.remove('visible'); // Reset first
-            setTimeout(() => text.classList.add('visible'), index * 150 + 50);
-        });
-    }
+    // About section animation (optimized and smooth)
+animateAboutSection() {
+    // First, ensure all texts are reset
+    this.elements.revealTexts.forEach(text => {
+        text.classList.remove('visible');
+        // Force reflow to ensure the browser registers the removal
+        void text.offsetWidth;
+    });
+    
+    // Then animate them in with proper timing
+    this.elements.revealTexts.forEach((text, index) => {
+        setTimeout(() => {
+            text.classList.add('visible');
+        }, index * 200 + 100);
+    });
+}
     
     // Optimized button animations
     animateButton(btn, state) {
