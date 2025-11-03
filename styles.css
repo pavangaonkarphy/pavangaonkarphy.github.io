@@ -113,8 +113,7 @@ nav ul li {
   position: relative;
   text-decoration: none;
   color: var(--text-color);
-  font-weight: 300;
-  font-size: 0.7 rem;
+  font-weight: 500;
   transition: color 0.3s ease;
   padding: 0.5rem 0;
 }
