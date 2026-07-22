@@ -275,6 +275,17 @@ h2 {
   flex-wrap: wrap;
 }
 
+.cv-embed {
+  width: 100%;
+}
+
+.cv-embed iframe {
+  width: 100%;
+  height: 85vh;
+  border: none;
+  display: block;
+}
+
 /* Buttons */
 .btn {
   display: inline-flex;
