@@ -6,6 +6,7 @@ class WebsiteController {
         this.animationDuration = 300;
         this.currentSection = 'about'; // Default section
         this.isInArticleView = false; // Track if we're viewing an article
+        this.cvRendered = false; // Track if the CV PDF has been rendered yet
         
         this.init();
     }
@@ -213,11 +214,59 @@ class WebsiteController {
             setTimeout(() => this.animateAboutSection(), 100);
         }
         
+        if (sectionId === 'cv' && !this.cvRendered) {
+            this.renderCV();
+        }
+        
         // Reset scroll position to top
         section.scrollTop = 0;
         window.scrollTo({ top: 0, behavior: 'smooth' });
     }
     
+    // Render the CV PDF inline as canvas pages, so it always shows in-page
+    // instead of downloading or relying on the browser's PDF plugin.
+    async renderCV() {
+        this.cvRendered = true;
+        const loadingEl = document.getElementById('cv-loading');
+        const pagesContainer = document.getElementById('cv-pages');
+
+        if (!pagesContainer || typeof pdfjsLib === 'undefined') {
+            if (loadingEl) loadingEl.textContent = 'Could not load CV viewer.';
+            return;
+        }
+
+        pdfjsLib.GlobalWorkerOptions.workerSrc =
+            'https://cdnjs.cloudflare.com/ajax/libs/pdf.js/4.0.379/pdf.worker.min.js';
+
+        try {
+            const pdf = await pdfjsLib.getDocument('pavan_cv.pdf').promise;
+            const containerWidth = pagesContainer.clientWidth || 850;
+
+            for (let pageNum = 1; pageNum <= pdf.numPages; pageNum++) {
+                const page = await pdf.getPage(pageNum);
+
+                // Scale so the rendered page matches the container width at a
+                // sharp resolution (extra factor for crispness on retina screens).
+                const unscaledViewport = page.getViewport({ scale: 1 });
+                const scale = (containerWidth / unscaledViewport.width) * 2;
+                const viewport = page.getViewport({ scale });
+
+                const canvas = document.createElement('canvas');
+                canvas.width = viewport.width;
+                canvas.height = viewport.height;
+                const context = canvas.getContext('2d');
+
+                await page.render({ canvasContext: context, viewport }).promise;
+                pagesContainer.appendChild(canvas);
+            }
+
+            if (loadingEl) loadingEl.classList.add('hidden');
+        } catch (err) {
+            console.error('Failed to render CV:', err);
+            if (loadingEl) loadingEl.textContent = 'Could not load CV. Please try again later.';
+        }
+    }
+
     // Update active navigation link
     updateActiveNavLink(activeLink) {
         this.elements.navLinks.forEach(nav => nav.classList.remove('active'));
